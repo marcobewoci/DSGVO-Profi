@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <record id="d_eins" model="dsgvo.empfaengerkategorien">
+        <field name="name">Musterbank</field>
+    </record>
+    <record id="d_zwei" model="dsgvo.empfaengerkategorien">
+        <field name="name">Muster-Wirtschaftstreuhänder</field>
+    </record>
+  </data>
+</odoo>

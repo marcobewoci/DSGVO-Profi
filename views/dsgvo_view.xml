@@ -1,0 +1,1609 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+   <menuitem name="DSGVO Profi" id="dsgvo_menu" sequence="450"/>
+    <record id="dsgvo_view" model="ir.ui.view">
+      <field name="name">DSGVO-Tool Form</field>
+      <field name="model">dsgvo.task</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="do_toggle_done" type="object"
+                  string="Als erledigt makieren" class="oe_hightlight"/>            
+                
+          </header>
+          <sheet>
+            <group name="group_top">
+              <group name="group_left">
+                <field name="name" style="background-color:Lightcyan;width:165%;Font-family:Arial;Font-size:14pt"/>
+                <field name="beschreibung" style="background-color:Moccasin;width:165%;Font-family:Arial;Font-size:12pt"/>
+                <field name="zielsetzung" style="background-color:#6cffb6;width:165%;Font-family:Arial;Font-size:12pt"/>
+                <field name="status" style="width:50%;color:Blue;Font-family:Arial;Font-size:12pt" widget='selection' string="Status Zielsetzung"/>
+                <field name="bearbeiteter_task" style="width:50%;color:Green;Font-family:Arial;Font-size:12pt" widget='selection' string="bearbeiteter Task"/>
+                <field name="anmerk" style="color:Red;Font-family:Arial;Font-size:12pt"/>
+                <field name="taetigkeiten" style="background-color:#b4daff;width:165%;Font-family:Arial;Font-size:12pt"/>
+                <field name="status2" style="width:50%;color:Blue;Font-family:Arial;Font-size:12pt" widget='selection' string="Status Tätigkeiten"/>
+                <field name="bearbeiteter_task2" style="width:50%;color:Green;Font-family:Arial;Font-size:12pt" widget='selection' string="bearbeiteter Task 2"/>
+                <field name="anmerk2" style="color:Red;Font-family:Arial;Font-size:12pt"/>
+
+             
+
+    
+              </group>
+              <group class="oe_right">
+              <!--<group name="group_right"> -->
+                <field name="user_id"/>
+                <field name="date_deadline"/>
+                <field name="is_done" />
+                <field name="priority" string="Priorität" style="margin-right:60px" widget='priority'/>              
+              </group>
+            </group>
+             <notebook colspan="4" col="8">
+             <page string="Interne Notizen">
+                 <field name="in_notes"/>
+             </page>
+
+             <page string="Extra Info">
+                 <group>
+                     <group>
+                         <field name="date_start"/> 
+                         <field name="date_end"/>
+                         <field name="duration"/>
+                          <button name="calc_duration" style="background-color:Deepskyblue" type="object"
+                                  string="Durchlaufszeit berechnen" class="oe_hightlight"/>
+
+                         <field name="links_art"/>
+                         <field name="links"/>
+                         <field name="ref"/>
+                     </group>
+                     <group>
+                         <field name="aufwand_intern"/>
+                         <field name="aufwand_extern"/>
+                         <field name="m_currency_id"/>
+                         <field name="ksatz_intern" widget='monetary' options="{'currency_field':'m_currency_id'}"/>
+                         <field name="ksatz_extern" widget='monetary' options="{'currency_field':'m_currency_id'}"/>
+                         <field name="kosten_intern" class="oe_inline" widget='monetary' options="{'currency_field':'m_currency_id'}"/>
+                         <field name="kosten_extern" class="oe_inline" widget='monetary' options="{'currency_field':'m_currency_id'}"/>
+
+                         <button name="calc_cost" style="background-color:Deepskyblue" type="object"
+                                  string="Kosten berechnen" class="oe_hightlight"/>
+                     </group>
+                 </group>
+             </page>
+             <page string="Haftungsausschluss">
+                 <group>
+                     <field name="haftungsausschluss"/>
+                         <field name="platzhalter" string=""/>
+                             <text style="width:320%;height:150%;">Haftungsausschluss: Die im bewoci DSGVO-Tool verwendeteten 
+                                Funktionen, Inhalte, Prozesse und Umsetzungsvorschläge wurden 
+                                nach besten Gewissen und derzeitigem Wissensstand eingepflegt. 
+                                Alle enthaltenen Funktionen, Inhalte, Prozesse und Umsetzungsvorschläge,
+                                dienen als Hilfestellung für die unternehmensinterne Abwicklung 
+                                und Umsetzung der DSGVO, jedoch steht es jedem Benutzer frei zu 
+                                entscheiden in welcher Form die bereitgestellten Funktionen
+                                und Vorschläge verwendet werden. Die einzelnen Umsetzungstasks
+                                mit den dementsprechenden Umsetzungsvorschlägen (Beschreibung,
+                                Zielsetzung, Tätigkeiten) sind Best-Practice Ansätze und dienen
+                                als Hilfestellung für laufende DSGVO-Projekte. Die Benutzung des bewoci DSGVO-
+                                Tools alleine garantiert keine DSGVO-Konformität.  
+                                Die Verantwortung über die gesetzeskonforme Umsetzung der DSGVO
+                                liegt alleine beim benutzenden Unternehmen. 
+                                Für Richtigkeit und Korrektheit aller Angaben, übernehmen wir keine Gewähr.
+                                 
+                                
+
+                                Haftungsbeschränkung für externe Links: Das bewoci DSGVO-Tool enthält sogenannte "externe Links"(Verknüpfungen zu Webseiten Dritter), 
+                                auf deren Inhalt wir keinen Einfluss haben und für den wir aus diesem Grund keine Gewähr übernehmen. Für die Inhalte und
+                                Richtigkeit der Informationen ist der jeweilige Informationsanbierter der verlinkten Webseite verantwortlich. Als die 
+                                Verlinkung vorgenommen wurde, waren keine Rechtsverstöße erkennbar. Sollte uns eine Rechtsverletzung bekannt werden, wird der
+                                jeweilige Link umgehend von uns entfernt.
+                             </text>
+                 </group>
+             </page>
+             </notebook>
+          </sheet>
+         
+<!-- including social media -->
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_tree_dsgvo_task" model="ir.ui.view">
+      <field name="name">Dsgvo Task Tree</field>
+      <field name="model">dsgvo.task</field>
+      <field name="arch" type="xml">
+<!--        <tree colors="gray:is_done==True"> -->
+        <tree colors="blue:name">
+          <field name="name" position="after"/>
+          <field name="user_id"/>
+          <field name="is_done"/>
+          <field name="aufwand_intern" sum="Aufwand intern"/>
+          <field name="aufwand_extern" sum="Aufwand extern"/>
+          <field name="kosten_intern" sum="Kosten intern"/>
+          <field name="kosten_extern" sum="Kosten extern"/>
+          <field name="date_deadline"/>
+           
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_filter_dsgvo_task" model="ir.ui.view">
+      <field name="name">Dsgvo Task Filter</field>
+      <field name="model">dsgvo.task</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name" position="after"/>
+            <field name="user_id"/>
+            <filter name="filter_my_tasks" string="My Tasks"
+                    domain="[('user_id','in',[uid,False])]"/>
+            <filter name="filter_not_assigned" string="Not Assigned"
+                    domain="[('user_id','=',False)]"/>
+          <filter string="Not Done" domain="[('is_done', '=', False)]"/>
+          <filter string="Done" domain="[('is_done', '!=', False)]"/>
+        </search>
+      </field>
+    </record>
+
+   
+
+
+  <!-- Action to open Dsgvo-Tool -->
+   <act_window id="action_dsgvo_tool"
+     name="DSGVO Profi"
+     res_model="dsgvo.task"
+     view_mode="tree,form"/>
+
+   <!-- Menu item to open Dsgvo-Tool -->
+   <menuitem id="menu_dsgvo_tool"
+     name="DSGVO Profi"
+     parent="dsgvo_menu"
+     sequence="20"
+     action="action_dsgvo_tool"/>
+
+<!-- Definition der einzelnen DSGVO-Tasks -->
+
+  <record id="task_eins" model="dsgvo.task">
+      <field name="name">1.1 Planungs-Phase </field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Erstellung einer Informationssammlung und Erst-Analyse zum Thema „Umsetzung der DSGVO im Unternehmen“. Zielbestimmung und Planung der erforderlichen Maßnahmen durch die Verantwortlichen Führungskräfte, um eine erfolgreiche Umsetzung im Unternehmen sicher zu stellen. Die Zustimmung des Management ist unbedingt erforderlich.
+      </field>
+      <field name="zielsetzung">1 Management-Präsentation der Inhalte, 
+   Vorgehensweisen und positiven Effekte einer 
+   DSGVO-Umsetzung für das Unternehmen. 
+2 Schaffung eines positiven Projektumfeldes.
+   Positive Effekte sind z.B.: 
+   ● Eine positive Wahrnehmung und höheres 
+      Vertrauen des Zielmarktes sowie im 
+      eigenen Unternehmen
+   ● Verbesserung der Marktchancen aufgrund 
+      der positiven Reputation
+   ● Haftungsrisiken reduzieren
+   ● Identifikation von Verbesserungspotentialen
+ 
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-5-ds-gvo">5</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-24-ds-gvo">24</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-82-ds-gvo">82</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-83-ds-gvo">83</a></p>          
+      </field> 
+      <field name="ref" type="html">
+        
+        <p><a href="http://www.eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A32016L1148">NIS-Richtlinie</a></p> 
+        <p><a href="https://www.iso.org/isoiec-27001-information-security.html">ISO/IEC 27001</a></p>
+      </field>   
+      <field name="taetigkeiten">1 Kick Off Meeting für das Management und die 
+   verantwortlichen Mitarbeiter.
+2 Präsentation und Diskussion der für den 
+   Datenschutz (DSGVO) relevanten Inhalte 
+   und Maßnahmen. 
+3 Empfehlung zur Verwendung eines spezifischen 
+   DSGVO Software-Tools für die initiale und 
+   laufende Umsetzung der DSGVO.
+4 Potentialauflistung
+      </field>
+
+  </record>
+  
+  <record id="task_zwei" model="dsgvo.task">
+      <field name="name">1.2 Projektauftrag für DSGVO Umsetzungsprojekt</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Definition der Projektinhalte, der Projektdurchlaufzeit, der einzelnen Projektschritte und Ziele sowie der Projektmitglieder in Form eines Projektauftrages.
+      </field>
+      <field name="zielsetzung">1 Klare Voraussetzungen für alle Projektbeteiligten
+   schaffen.
+2 Projektdokumentation entlang des gesamten 
+   Projekts als Aufgabe.
+3 Die Geschäftsführung und die Projektleitung für 
+   das Projekt motivieren.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-5-ds-gvo">5</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-24-ds-gvo">24</a></p>
+      </field>
+      <field name="taetigkeiten">1 Projektziele definieren
+2 Erstellen eines Projektzeitplans
+3 Projekt-Milestones  planen und festlegen
+4 Kostenbudget planen und erstellen
+5 Kritische Erfolgsfaktoren identifizieren
+6 Ernennung des Projektteams sowie Zuteilung 
+   der Verantwortlichkeiten und Aufgaben
+7 Nicht beeinflussbare Rahmenbedingungen 
+   identifizieren
+8 Eskalationsmanagement-Prozess erstellen
+9 Gegebenenfalls Auftrag oder Projektauftrag 
+   einholen
+      </field>
+  </record>
+
+  
+  <record id="task_drei" model="dsgvo.task">
+      <field name="name">1.3 Ressourcen Planung und Bereitstellung</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Die für das Projekt benötigten Ressourcen müssen geplant, freigegeben und bereit gestellt werden. Basierend auf die Erfahrungen des Implementierungsprojektes sind auch die Ressourcen für die laufende Bearbeitung der DSGVO - Konformität zu planen und bereit zu stellen.
+      </field>
+      <field name="zielsetzung">1 Das Ziel ist ein positiver Projekterfolg 
+   und eine erfolgreiche Überleitung in einen 
+   laufenden Betrieb. Dementsprechend sind 
+   dem Projekt die nötigen Ressourcen und 
+   eine entsprechende Wissensbasis zur 
+   Verfügung zu stellen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-24-ds-gvo">24</a></p>
+      </field>
+      <field name="ref" type="html">
+        <p><a href="https://www.iso.org/isoiec-27001-information-security.html">ISO/IEC 27001 Kapitel 5.2</a></p>
+      </field>
+      <field name="taetigkeiten">1 Gemäß Projektplan und -umfang sind 
+   entsprechende Ressourcen zu planen 
+   und bereit zu stellen.
+2 Sofern die internen Ressourcen nicht 
+   ausreichen, sind externe Ressourcen 
+   beizuziehen.
+3 Bereitstellung der Budgetmittel gemäß 
+   Projektplan.
+4 Sicherstellung der Verfügbarkeit der personellen 
+   Ressourcen für das Implementierungsprojekt 
+   und den laufenden Betrieb.
+      </field>
+  </record>
+
+  <record id="task_vier" model="dsgvo.task">
+      <field name="name">1.4 Schulung</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Um die entsprechende Wissensbasis für ein erfolgreiches DSGVO Projekt zu schaffen, ist es unumgänglich die Projektmitglieder und Mitarbeiter entsprechend in den Bereichen Datensicherheit und Datenschutz zu schulen.
+In einem erfolgreichen Projekt wird die Basis für den richtigen Umgang mit den Themenbereichen der DSGVO für die gesamte Unternehmensorganisation gelegt.
+Durch Nutzung des vorhandenen Know-How´s und optimale Einteilung der Projektmitglieder zu deren Verantwortlichkeiten und Arbeitspaketen ist ein effizientes Projektmanagement gesichert.
+      </field>
+      <field name="zielsetzung">1 Die Projektmitglieder und die relevanten 
+   Mitarbeiter sind sich der Wichtigkeit der 
+   Umsetzung des Projektes zur DSGVO bewusst 
+   und haben die nötige Wissensgrundlage zur 
+   Weitervermittlung des DSGVO Wissens im 
+   Unternehmen.
+2 Die Projektmitglieder und die relevanten 
+   Mitarbeiter haben Zugang zu den notwendigen 
+   Informationen und Personen um 
+   Verarbeitungstätigkeiten dokumentieren 
+   zu können.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-4-ds-gvo">4</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-5-ds-gvo">5</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-6-ds-gvo">6</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-7-ds-gvo">7</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-8-ds-gvo">8</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-9-ds-gvo">9</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-10-ds-gvo">10</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-11-ds-gvo">11</a></p>
+      </field>
+      <field name="taetigkeiten">Schulungen zu folgenden Themen (beispielhaft):
+● Voraussetzungen für die Datenverarbeitung 
+   werden?
+● Daten welche von der DSGVO betroffen sind
+● Behandlung von Daten
+● Aufgaben und Pflichten der verantwortlichen 
+   Projektmitglieder und Mitarbeiter
+● Betroffenenrechte
+● Vertraulichkeit / Datenschutz
+● Interne Handhabung und Datenbehandlung
+      </field>
+  </record>
+
+  <record id="task_fuenf" model="dsgvo.task">
+      <field name="name">1.5 Voraussetzungen zur Bestellung eines Datenbeauftragten</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">In der DSGVO sind die Grundlagen und Notwendigkeiten zur Benennung eines Datenschutzbeauftragten geregelt.
+Die Organisation hat im Zuge der Vorbereitung auf die DSGVO Konformität zu prüfen, ob der Einsatz eines Datenschutzbeauftragten notwendig ist.
+Bei größeren bzw. verzweigten Organisationen kann unter bestimmten Umständen ein Datenschutzbeauftragter auch für eine ganze Gruppe bzw. für mehrere Zweigstellen zuständig sein. Dies ist zu prüfen.
+      </field>
+      <field name="zielsetzung">1 Entscheidung ob der Einsatz eines 
+   Datenschutzbeauftragten notwendig ist.
+2 Ist der Einsatz eines Datenschutzbeauftragten
+   notwendig so ist zu entscheiden, ob dies eine
+   oder mehrere DSB´s sein müssen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-37-ds-gvo">37</a></p>
+      </field>
+      <field name="links" type="html">
+        <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-097">97</a></p>
+      </field>
+      <field name="taetigkeiten">Die DSGVO fordert den Einsatz eines 
+Datenschutzbeauftragten anhand folgender Kriterien:
+
+1 Wenn die Verarbeitung von einer Behörde oder 
+   öffentlichen Stelle durchgeführt wird, mit 
+   Ausnahme von Gerichten, die im Rahmen ihrer 
+   justiziellen Tätigkeit handeln.
+2 Wenn die Kerntätigkeit des Verantwortlichen 
+   oder des Auftragsverarbeiters in der 
+   Durchführung von Verarbeitungsvorgängen 
+   besteht, welche aufgrund ihrer Art, ihres 
+   Umfangs und / oder ihrer Zwecke eine 
+   umfangreiche, regelmäßige und systematische 
+   Überwachung von betroffenen Personen 
+   erforderlich machen. 
+3 Wenn die Kerntätigkeit des Verantwortlichen 
+   oder des Auftragsverarbeiters in der 
+   umfangreichen Verarbeitung besonderer 
+   Kategorien von Daten gemäß Artikel 9 oder 
+   von personenbezogenen Daten über 
+   strafrechtliche Verurteilungen oder 
+   Straftaten gemäß Artikel 10 besteht. 
+      </field>
+   </record>
+
+
+  <record id="task_sechs" model="dsgvo.task">
+      <field name="name">2.1 Verarbeitungstätigkeiten identifizieren</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Alle Verarbeitungstätigkeiten welche im Zusammenhang mit personenbezogenen Daten erfolgen sind zu identifizieren und deren Abläufe 
+und Verbindungen sind zu dokumentieren.
+Gleichermaßen sind die Verantwortlichen, die Datenarten, die Herkunft der Daten, der Umgang mit den Daten und alle damit zusammenhängenden Verarbeitungen herauszufinden und zu dokumentieren. 
+Diese Informationen und Abläufe sind die 
+Grundlage für das Verfahrensverzeichnis.  
+      </field>
+      <field name="zielsetzung">1 Identifikation von/der Verarbeitungstätigkeiten.
+2 Dokumentation von/der Verarbeitungstätigkeiten.
+
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-2-ds-gvo">2</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-3-ds-gvo">3</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-30-ds-gvo">30</a></p>
+      </field>
+      <field name="taetigkeiten">1. - Identifikation der Verarbeitungstätigkeiten
+    ● Software/IT-Systeme
+    ● Applikationen
+    ● Dateien/Ordner – Dokumentenarten 
+       (Word, Excel,…)
+    ● Akten (Karteikarten,…)
+    
+2. Formularerstellung für IST Stand Erfassung
+    ● Papierformular oder IT Tool mit vorgegebener 
+       Struktur
+3. Abfrage der wesentlichen Themen zu den 
+    Verarbeitungstätigkeiten
+    ● Welche Daten ?
+    ● In welchen Unternehmen / 
+       Unternehmensbereichen etc.?
+    ● Zuständigkeiten
+    ● Zweck der Datenverarbeitung
+    ● Rechtsgrundlage
+    ● Datenherkunft
+    ● Datenversand (Datenempfänger(in))
+    ● Datenspeicherung (Zeitraum der 
+       Datenspeicherung)
+    ● Nicht mehr benötigte oder geänderte 
+       Verarbeitungen
+    ● Datenlöschung (Welche Daten können wann 
+       gelöscht werden?)
+4. Involvierte Personen:
+    ● Datenschutz – Ansprechpartner(in) bzw. 
+       Verantwortliche(r)
+    ● gegebenenfalls die/der 
+       Datenschutzbeauftragte(r)
+    ● IT – Leiter(in)
+    ● gegebenenfalls: Externe(r) 
+       Datenschutzbeauftragte(r) bzw. 
+       externe(r) IT-Berater(in)
+5. Einbringen der erhobenen Informationen ins 
+    Projekt bzw. an das Projekt Team
+6. Prüfung der Informationen auf Vollständigkeit
+    und Klärung etwaiger Fragen durch das Projekt 
+    Team
+7. Das Projekt Team erstellt eine Visualisierung
+    der Datenflüsse
+       </field>
+  </record>
+
+  <record id="task_sieben" model="dsgvo.task">
+      <field name="name">2.2 Verfahrensverzeichnis erstellen</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Die DSGVO verpflichtet den Verantwortlichen sowie den Auftragsverarbeiter (in geringerem Ausmaß) zur Führung eines Verfahrensverzeichnisses welches alle Verarbeitungstätigkeiten dokumentiert.
+Das Verfahrensverzeichnis ist schriftlich (digital oder auf Papier) zu führen und auf Verlangen der Aufsichtsbehörde zur Verfügung zu stellen.
+Folgende Anforderungen werden an ein Verzeichnis von Verarbeitungstätigkeiten gestellt:
+
+1. Es existiert ein Verzeichnis, in dem alle 
+    Verarbeitungstätigkeiten für jeden 
+    Verantwortlichen (Art. 30 Abs. 1 DSGVO) 
+    bzw. Auftragsverarbeiter (Art. 30 Abs.2
+    DSGVO) angeführt sind.
+2. Das Verzeichnis bildet alle (Mindest-) 
+    Inhalte, die in Art. 30 Abs. 1 DSGVO
+    für den Verantwortlichen bzw. in Art. 30
+    Abs. 2 DSGVO für den Auftragsverarbeiter 
+    verbindlich festgelegt sind, ab.
+3. Das Verzeichnis ist grundsätzlich schriftlich
+    zu führen. Eine elektronische Form ist jedoch
+    auch zulässig (Art. 30 Abs. 3 DSGVO).
+4. Auf Anfrage muss der Verantwortliche bzw. der 
+    Auftragsverarbeiter der Aufsichtsbehörde das 
+    Verzeichnis zur Verfügung stellen 
+    (Art. 30 Abs. 4 DSGVO).
+
+Da nur ein Verzeichnis existieren soll, ist es offensichtlich, dass die „Stammdaten“ vom Verantwortlichen und Auftragnehmer (Anschrift und entsprechende Kontaktdaten) nur einmal aufgeführt werden müssen.
+Hinweis:
+
+In diesem Zusammenhang sei insbesondere
+auf die Forderung von Art. 30 Abs. 2 lit. a 
+hingewiesen, in der festgelegt wird, dass
+der Auftragnehmer zur jeweiligen Tätigkeit 
+insbesondere auch die Kontaktdaten des 
+Verantwortlichen angeben muss. 
+Diese Forderung lässt sich ferner auch aus
+Erwägungsgrund 82 herleiten. 
+Denn nur wenn die entsprechenden 
+Informationen vorhanden sind, ist eine 
+Aufsichtsbehörde in der Lage, eine 
+ordnungsgemäße Auftragsvergabe und 
+–abwicklung zu überprüfen. 
+Rechenschaftspflicht („Accountability“)
+
+Der Gesetzgeber sieht das Verzeichnis 
+aus Art. 30 DSGVO als „dynamisch“ an. 
+Die Konsequenz daraus ist, dass jede 
+identifizierte bzw. definierte Tätigkeit
+in regelmäßigen Abständen darauf hin zu 
+überprüfen ist, ob die Prozesse auch 
+genauso ablaufen, wie ursprünglich 
+festgestellt und dokumentiert. 
+Dieses wiederum hat zur Konsequenz dass,
+wenn sich Verarbeitungstätigkeiten z.B. 
+auf Grund geänderter Anforderungen ändern,
+diese Änderung auch in der Dokumentation
+/dem Verzeichnis dargestellt werden muss  
+
+      </field>
+      <field name="zielsetzung">1 Schriftliche Aufnahme und Darstellung 
+   aller Verarbeitungstätigkeiten mit 
+   personenbezogenen Daten in einem 
+   Unternehmen, einer Organisation, einer
+   Behörde oder einer öffentlichen Stelle.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-12-ds-gvo">12</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-13-ds-gvo">13</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-14-ds-gvo">14</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-15-ds-gvo">15</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-16-ds-gvo">16</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-17-ds-gvo">17</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-18-ds-gvo">18</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-19-ds-gvo">19</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-20-ds-gvo">20</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-21-ds-gvo">21</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-30-ds-gvo">30</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-35-ds-gvo">35</a></p>
+      </field>
+      <field name="links" type="html">
+        <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-013">13</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-075">75</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-076">76</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-082">82</a></p>
+      </field>
+      <field name="taetigkeiten">Der Verantwortliche und/oder sein Vertreter erstellen und führen auf Basis der erhobenen Informationen und der Datenfluss-Visualisierung ein eindeutiges und detailliertes Verzeichnis aller Verarbeitungstätigkeiten ihres Zuständigkeitsbereiches.
+
+Folgende Angaben hat das Verzeichnis des Verantwortlichen zu beinhalten:
+
+
+  1 Name und Kontaktdaten des/der 
+     Verantwortlichen, gegebenenfalls
+     des/der Vertreter(in)s sowie eines/einer
+     Datenschutzbeauftragten, wenn vorhanden.
+  2 Der Zweck der Verarbeitungen
+  3 Eine Beschreibung der Kategorien 
+     betroffener Personen sowie die Kategorien
+     personenbezogener Daten.
+  4 Die Kategorien von Empfängern, gegenüber
+     welchen die Daten offengelegt worden sind
+     oder noch offengelegt werden, einschließlich
+     Empfänger in Drittländern oder internationalen
+     Organisationen.
+  5 Gegebenenfalls Übermittlungen von 
+     personenbezogenen Daten an ein Drittland 
+     oder an eine internationale Organisation, 
+     sowie bei den in Artikel 49 Absatz 1 
+     Unterabsatz 2 genannten Datenübermittlungen
+     die Dokumentierung geeigneter Garantien.
+  6 Nach Möglichkeit, die vorgesehenen Fristen  
+     für die Löschung der verschiedenen 
+     Datenkategorien. 
+  7 Nach Möglichkeit, eine allgemeine 
+     Beschreibung der technischen und 
+     organisatorischen Maßnahmen (TOM´s).
+
+Der Auftragsverarbeiter und/oder sein Vertreter 
+erstellen und führen auf Basis der erhobenen 
+Informationen und der Datenfluss-Visualisierung 
+ein eindeutiges und detailliertes Verzeichnis 
+zu allen Kategorien von im Auftrag eines 
+Verantwortlichen durchgeführten Tätigkeiten 
+der Verarbeitung.
+
+Folgende Angaben hat das Verzeichnis des 
+Auftragsverarbeiters zu beinhalten:
+  
+Name und Kontaktdaten des Auftragsverarbeiters
+oder der Auftragsverarbeiter und jedes 
+Verantwortlichen, in dessen Auftrag der 
+Auftragsverarbeiter tätig ist, sowie 
+gegebenenfalls des Vertreters des 
+Verantwortlichen oder des Auftragsverarbeiters 
+und eines etwaigen Datenschutzbeauftragten.
+
+  1 Die Kategorien von Verarbeitungen, die im 
+     Auftrag von Verantwortlichen durchgeführt 
+     werden.
+  2 Gegebenenfalls Übermittlungen von 
+     personenbezogenen Daten an ein Drittland 
+     oder an eine internationale Organisation, 
+     sowie bei den in Artikel 49 Absatz 1 
+     Unterabsatz 2 genannten Datenübermittlungen 
+     die Dokumentierung geeigneter Garantien.
+  3  Nach Möglichkeit, eine allgemeine 
+      Beschreibung der technischen und 
+      organisatorischen Maßnahmen (TOM´s).
+
+
+     </field>
+  </record>
+
+  <record id="task_acht" model="dsgvo.task">
+      <field name="name">2.3 Datenschutz-Folgenabschätzung / Evaluierung des Risiko´s </field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Eine Datenschutz-Folgenabschätzung ist insbesondere dann durchzuführen:
+
+1 Wenn eine Form der Verarbeitung aufgrund 
+   der Art, des Umfangs, der Umstände und 
+   Zwecke der Verarbeitung voraussichtlich 
+   ein hohes Risiko für die Rechte und 
+   Freiheiten natürlicher Personen zur 
+   Folge hat.
+
+2 Wenn eine systematische und umfassende 
+   Bewertung persönlicher Aspekte 
+   natürlicher Personen aufgrund von 
+   automatisierter Verarbeitung der Daten 
+   durchgeführt wird (Profiling) und dadurch 
+   Rechtswirkung entsteht oder natürliche 
+   Personen dadurch in ähnlicher, erheblicher 
+   Weise beeinträchtigt werden.
+   In solch einem Fall hat der Verantwortliche 
+   im Vorfeld eine Abschätzung der Folgen der 
+   vorgesehenen Verarbeitungsvorgänge zum 
+   Schutz personenbezogener Daten 
+   durchzuführen.
+
+3 Wenn es sich um eine umfangreiche 
+   Verarbeitung besonderer Kategorien von 
+   personenbezogenen Daten oder in Bezug auf
+   strafrechtliche Verurteilungen und Straftaten
+   handelt. 
+
+4 Wenn es sich um die systematische, 
+   umfangreiche Überwachung öffentlich 
+   zugänglicher Bereiche handelt.
+   Die Aufsichtsbehörde erarbeitet eine Liste 
+   der Verarbeitungsvorgänge, für die eine 
+   Datenschutz-Folgenabschätzung durchzuführen 
+   ist und wird diese veröffentlichen.
+   Die Aufsichtsbehörde wird voraussichtlich auch
+   eine Liste der Verarbeitungsvorgänge erstellen
+   und veröffentlichen, für welche keine 
+   Datenschutz-Folgenabschätzung notwendig ist.
+
+      </field>
+      <field name="zielsetzung">1 Eine Einschätzung, Evaluierung und 
+   Dokumentation der Risiken und Auswirkungen 
+   der Verarbeitungstätigkeiten in Bezug auf 
+   personenbezogene Daten und in Bezug auf 
+   die Rechte der Betroffenen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-22-ds-gvo">22</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-35-ds-gvo">35</a></p>
+      </field>
+      <field name="links" type="html">
+        <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-076">76</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-084">84</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-089">89</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-090">90</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-091">91</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-092">92</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-093">93</a></p>
+      </field>
+      <field name="ref" type="html">
+        <p><a href="https://www.iso.org/iso-31000-risk-management.html">Best-Pratice: ISO 31000 Kapitel 5.2</a>, <a href="https://www.iso.org/standard/62289.html">ISO 29134</a>, <a href="https://www.bsi.bund.de/DE/Themen/ITGrundschutz/itgrundschutz_node.html">BSI IT-Grundschutz</a></p>
+        <p><a href="http://ec.europa.eu/newsroom/document.cfm?doc_id=44137">Working Paper 248 der Art. 29 Gruppe</a></p>
+      </field>
+      <field name="taetigkeiten">Prüfung, ob eine Datenschutz-Folgenabschätzung für die betreffende Organisation gefordert ist.
+
+Der Verantwortliche holt sich den Rat, das 
+Know-How und die Erfahrung des/der 
+Datenschutz-Beauftragten ein, sofern es 
+eine(n) solche(n) in der Organisation gibt.
+Abgleich gegenüber der Listen der 
+Aufsichtsbehörde betreffend der 
+Verarbeitungsvorgänge welche eine oder 
+keine Datenschutz-Folgenabschätzung erfordern.
+
+1 Erstellen einer systematischen Beschreibung 
+   der Verarbeitungsvorgänge und der Zwecke der 
+   Verarbeitung, wenn zutreffend mit den vom 
+   Verantwortlichen verfolgten, berechtigten 
+   Interessen.
+
+2 Eine Einschätzung der Notwendigkeit und 
+   Verhältnismäßigkeit der Verarbeitungsvorgänge 
+   in Bezug auf den Zweck.
+
+3 Eine Einschätzung der Risiken für die Rechte 
+   und Freiheiten der betroffenen Personen.
+
+4 Eine Einschätzung der 
+   Eintrittswahrscheinlichkeit von 
+   identifizierten Risiken.
+
+5 Eine Darstellung der Maßnahmen zur 
+   Bewältigung der Risiken inkl. der 
+   Sicherheitsvorkehrungen, Verfahren 
+   und Garantien zum Schutz 
+   personenbezogener Daten.
+
+Der Verantwortliche hat erforderlichenfalls 
+Überprüfungen durchzuführen, um die 
+Durchführung der Verarbeitung gemäß 
+Datenschutz-Folgenabschätzung in der Praxis
+zu bewerten. Dies ist besonders dann 
+notwendig, wenn sich Änderungen des Risikos
+ergeben haben.
+
+  
+      </field>
+
+  
+  </record>
+
+  <record id="task_neun" model="dsgvo.task">
+      <field name="name">2.4  Sicherstellung der Grundsätze und Rechtmäßigkeit der Verarbeitung</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Die Voraussetzung für die Rechtmäßigkeit der Verarbeitung von personenbezogenen Daten basiert auf den Grundsätzen der Datenschutz-Grundverordnung (DSGVO)
+      </field>
+      <field name="zielsetzung">1 Die Sicherstellung der Einhaltung der 
+   Grundsätze und Rechtmäßigkeit der 
+   Verarbeitung von personenbezogenen 
+   Daten sowie die Dokumentation über 
+   den Umgang damit.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-5-ds-gvo">5</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-039">39</a></p>
+      </field>
+      <field name="taetigkeiten">Schaffen der Voraussetzungen und Sicherstellung, dass personenbezogene Daten:
+
+  1 auf rechtmäßige Art, nach Treu und Glauben 
+     und in einer für die betroffene Person 
+     nachvollziehbare Weise verarbeitetet werden.
+
+  2 für festgelegte, eindeutige und legitime 
+     Zwecke erhoben werden und nicht außerhalb 
+     dieser Zwecke weiterverarbeitet werden.
+
+  3 auf das zum Zweck der Verarbeitung 
+     notwendige Maß beschränkt und dem 
+     Zweck angemessen sind.
+
+  4 im Hinblick auf die Zwecke ihrer Verarbeitung 
+     sachlich richtig und auf dem neuesten Stand 
+     sind und sollten sie unrichtig sein, 
+     unverzüglich gelöscht oder berichtigt werden.
+
+  5 so gespeichert werden, dass die Identifikation 
+     der betroffenen Personen nur so lange möglich 
+     ist, wie es für die dem Zweck entsprechende 
+     Verarbeitung, notwendig ist.
+
+  6 in jener Art verarbeitet werden, welche durch 
+     geeignete technische und organisatorische 
+     Maßnahmen einen Schutz vor unbefugter oder 
+     unrechtmäßiger Verarbeitung, vor 
+     unbeabsichtigtem Verlust, vor unbeabsichtigter 
+     Zerstörung oder unbeabsichtigter Schädigung 
+     gewährleistet.
+
+
+Im Rahmen der Rechenschaftspflicht ist der 
+Verantwortliche für die Einhaltung der Grundsätze 
+und Rechtmäßigkeit der Verarbeitung von 
+personenbezogenen Daten verantwortlich und
+muss dessen Einhaltung nachweisen können.
+      </field>
+  </record>
+
+  <record id="task_zehn" model="dsgvo.task">
+      <field name="name">2.5 Technische und organisatorische Maßnahmen</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Vom Verantwortlichen sind angemessene und geeignete Maßnahmen zur Datensicherheit vorzunehmen. Bei der Entscheidungsfindung der Maßnahmen sind folgende Kriterien heranzuziehen:
+
+ ● Der jeweils aktuelle Stand der Technik 
+    (gemäß offizieller Normen wie z.B. 
+    ISO/IEC 27001:2013 etc.).
+ ● Die jeweiligen Kosten einer Implementierung.
+ ● Zweck, Umfang und Umstände der Verarbeitung.
+ ● Der Eintrittswahrscheinlichkeiten und Tragweite 
+    des Risikos für die Rechte und Freiheiten 
+    von natürlichen Personen.
+ 
+      </field>
+      <field name="zielsetzung"> 1 Die Sicherstellung von geeigneten technischen 
+    und organisatorischen Maßnahmen 
+ 2 Die laufende Kontrolle der Verarbeitung 
+    in Bezug auf den Stand der Technik
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-32-ds-gvo">32</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-083">83</a></p>
+      </field>
+      <field name="ref" type="html">
+        <p><a href="https://www.iso.org/standard/54534.html">ISO/IEC 27001:2013</a>, <a href="https://www.iso.org/standard/54533.html">Controls der ISO/IEC 27002:2013</a></p>
+        <p><a href="https://www.bsi.bund.de/DE/Themen/ITGrundschutz/itgrundschutz_node.html">BSI IT-Grundschutz</a></p>
+      </field>
+      <field name="taetigkeiten">Umsetzung der geeigneten technischen und organisatorischen Maßnahmen
+
+ 1 Check der ISO/IEC 27002
+ 2 Organisationsspezifische IT-Sicherheitsrichtlinie
+    und Benutzer-/Berechtigungskonzept erstellen.
+ 3 Verantwortungen und Rollen festlegen
+ 4 Prozessablauf für Mitarbeitereintritt über 
+    Bereichswechsel bis zu Mitarbeiteraustritt 
+    definieren.
+ 5 Vorschriften und Verantwortungen für 
+    Rückgabe/Rücklegung von Hardware,
+    Software, Passwörtern, Schlüssel 
+    etc.festlegen und dokumentieren.
+ 6 Informationskategorien erstellen.
+ 7 Zutritts- und Zugriffsformen und  
+    -berechtigungen regeln. 
+ 8 Regeln für Passwortkomplexität und 
+    -länge feststellen und vorgeben.
+ 9 Art und Umgang von und mit Verschlüsselungen 
+    (z.B. eMail) erstellen.
+ 10 Sicherheitskonzept erstellen für:
+     ● Räumliche Sicherheit  
+     ● Betriebsabläufe
+     ● Bekämpfung von Schadsoftware
+     ● Schutz vor Datenverlust (Backup etc.)
+     ● Überwachungs- und Protokollierungsroutinen 
+        einführen
+     ● Security Schwachstellen erkennen und 
+        Regelungen für den Umgang damit festlegen.
+     ● Regelung zur Vorgehensweise bei Installation 
+        von Software definieren.
+       
+ 11 Sicherheitsmaßnahmen für das Netzwerk 
+      erarbeiten.
+ 12 Datenübertragungsvorgänge absichern.
+ 13 Systemabsicherung / z.B. Entwicklungs-, 
+      Test und Produktivsystem getrennt führen.
+ 14 Vorgegebenen Werkzeuge und Vorgehensweisen 
+      für Entwickler erstellen.
+ 15 Sicherheitsvorgaben für Lieferanten erstellen  
+      und nur Lieferanten akzeptieren, welche 
+      diese einhalten.
+ 16 Notfallplan und Vorgangsweise im Fall von 
+      Sicherheitsvorfällen definieren.
+ 17 Definition einer Regelung für die Sicherstellung 
+      der Informationssicherheit bei Notfallszenarien.
+ 18 Erstellung einer Regelung zur Einhaltung der 
+      gesetzlichen und vertraglichen Anforderungen 
+
+Laufende Überprüfung und Kontrolle des 
+Technikstands in Bezug auf die Verarbeitungspraxis
+und die angewendeten Sicherheitsmaßnahmen.
+
+      </field>
+  
+  </record>
+
+  <record id="task_elf" model="dsgvo.task">
+      <field name="name">2.6 Rechte der von einer Datenanwendung betroffenen Person wahren</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Jede von einer Datenanwendung betroffene Person hat eine Reihe von Rechten gegenüber dem Verantwortlichen. 
+Namentlich: Betroffenenrechte!
+Insbesondere kann eine betroffene Person Informationen zu den erhobenen personenbezogenen Daten begehren und/oder sich gegen unrichtige oder unvollständige Daten wehren und/oder verlangen, dass solche die Person betreffende Daten wieder gelöscht werden.
+      </field>
+      <field name="zielsetzung">1 Schaffen der notwendigen Voraussetzungen,
+   welche die fristgerechte Einhaltung  der von 
+   einer betroffenen Person begehrten 
+   Rechtsanwendungen sicherstellt. 
+   Die Frist ist mit „unverzüglich“ festgelegt, 
+   jedenfalls innerhalb eines Monats nach 
+   Eingang der Anfrage. 
+   Die Frist kann um weitere zwei Monate
+   verlängert werden.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-15-ds-gvo">15</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-16-ds-gvo">16</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-17-ds-gvo">17</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-18-ds-gvo">18</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-19-ds-gvo">19</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-20-ds-gvo">20</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-21-ds-gvo">21</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/erwagungsgrunde-der-eu-datenschutz-grundverordnung">58-73</a></p>
+      </field>
+      <field name="taetigkeiten">Einrichten einer Stelle welche grundsätzlich und bei Bedarf, verantwortlich die Begehren einer betroffenen Person im Rahmen der Betroffenenrechte entgegennimmt und deren fristgerechte Bearbeitung und Erledigung steuert und finalisiert. 
+Diesbezügliche Themen:
+
+    ● Einhaltung der Informationspflicht bei 
+       Erhebung von personenbezogenen Daten bei
+       der betroffenen Person.
+    ● Einhaltung der Informationspflicht, wenn 
+       die personenbezogenen Daten nicht bei der 
+       betroffenen Person erhoben wurden.
+    ● Auskunftsrecht (Zweck, welche Daten, 
+       Empfänger der Daten, Speicherdauer, 
+       Herkunft der Daten etc.)
+    ● Recht auf Berichtigung (Berichtigung von
+       falschen Daten)
+    ● Recht auf Löschung (Löschung aufgrund 
+       eines Begehrens bzw. wenn der Zweck nicht
+       mehr vorhanden ist)
+    ● Recht auf Einschränkung der Verarbeitung 
+       (keine Verarbeitungstätigkeit mehr – 
+       ausschließlich Speicherung der Daten)
+    ● Recht auf Datenübertragbarkeit (Der 
+       Verantwortliche hat, wenn technisch 
+       machbar, die Daten direkt einem anderen 
+       Verantwortlichen zu übermitteln.
+    ● Widerspruchsrecht (Bei einem Widerspruch 
+       darf der Verantwortliche die Daten der 
+       betroffenen Person nicht weiterverarbeiten. 
+       Die betroffene Person ist von der 
+       Maßnahme schriftlich zu informieren). 
+
+Die entsprechenden Prozessabläufe sind zu 
+dokumentieren.
+Die weiterführende Erfüllung der Pflichten 
+von einem etwaigen Auftragsverarbeiter ist 
+sicherzustellen.
+
+
+
+      </field>
+  </record>
+
+
+  <record id="task_zwoelf" model="dsgvo.task">
+      <field name="name">2.7 Einwilligung der betroffenen Personen einholen</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Die Verarbeitung von personenbezogenen Daten kann als rechtmäßig angesehen werden, wenn 
+die betroffene Person eine Einwilligung zur Verarbeitung der sie betreffenden Daten gibt. 
+Die Einwilligung muss freiwillig und kann schriftlich, elektronisch oder mündlich, erfolgen. 
+Für die Verarbeitung von sensiblen Daten/Daten besonderer Kategorien muss jedenfalls eine ausdrückliche Einwilligungserklärung vorliegen.
+      </field>
+      <field name="zielsetzung">1 Das Vorliegen einer freiwillig, 
+   unmissverständlich abgegebenen Einwilligung 
+   jeder betroffenen Person von der 
+   personenbezogene Daten verarbeitet werden.
+2 Die Nachweisbarkeit der Einwilligungen durch 
+   den Verantwortlichen.
+3 Ein eindeutiger Informationsfluss zu betroffenen
+   Personen über den Verantwortlichen und zu den 
+   Zwecken der Verarbeitung ihrer 
+   personenbezogenen Daten sowie über die 
+   Möglichkeit der Einwilligung wie auch der 
+   Verweigerung oder des Widerrufs der 
+   Einwilligung zur Verarbeitung der sie 
+   betreffenden personenbezogenen Daten.
+
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-4-ds-gvo">4</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-7-ds-gvo">7</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-8-ds-gvo">8</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-032">32</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-038">38</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-042">42</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-043">43</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Anklickbare Einwilligungserklärung auf der 
+    Webseite (wenn möglich)
+ 2 Erstellung eines Formulars 
+   "Einwilligungserklärung" in klarer
+    und unmissverständlicher Sprache.
+ 3 Festlegen einer Vorgehensweise bei 
+    betroffenen Personen welche das 
+    14. Lebensjahr (in Österreich)
+    noch nicht vollendet haben.  
+    ■ Einwilligung der Eltern ist notwendig
+ 4 Prozessfestlegung für einen etwaigen 
+    Widerruf - Die Daten dürfen dann nur 
+    noch gespeichert, aber nicht mehr 
+    weiterverarbeitet werden.
+      </field>
+   </record>
+
+  <record id="task_dreizehn" model="dsgvo.task">
+      <field name="name">2.8 Vorgehensweise zur Erfüllung der Informationspflichten festlegen</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Verantwortliche müssen betroffenen Personen 
+alle Informationen zur Verfügung stellen, welche die Art, den Zweck und den Umfang der Verarbeitungstätigkeit beschreiben. 
+Die Daten müssen nicht zur Verfügung gestellt werden, wenn die betroffene Person bereits über die Informationen verfügt.
+Die Informationspflichten unterscheiden sich in einer Auflistung von Informationen welche zu erteilen sind, wenn die Daten bei Betroffenen direkt erhoben wurden und für den Fall, dass 
+die Daten nicht bei Betroffenen direkt erhoben wurden.
+      </field>
+      <field name="zielsetzung">1 Zur Verfügung Stellung der von der DSGVO 
+   geforderten Daten und Informationen in 
+   konkreter, leicht zugänglicher und 
+   verständlicher Form.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-12-ds-gvo">12</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-13-ds-gvo">13</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-14-ds-gvo">14</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-058">58</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-059">59</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-060">60</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-061">61</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-062">62</a></p>
+      </field>
+      <field name="taetigkeiten">Schaffen der Voraussetzungen und Abläufe 
+für die fristgerechte Bereitstellung der von 
+der DSGVO geforderten Informationen.
+Informationspflicht bei Erhebung von 
+personenbezogenen Daten bei der betroffenen Person:
+
+Der Verantwortliche hat der betroffenen Person 
+zum Zeitpunkt der Erhebung der Daten folgendes 
+mitzuteilen:
+
+ 1 den Namen und die Kontaktdaten des 
+    Verantwortlichen sowie gegebenenfalls 
+    des Vertreters.
+ 2 gegebenenfalls den Namen und die 
+    Kontaktdaten des 
+    Datenschutzbeauftragten.
+ 3 die Zwecke und die Rechtsgrundlage 
+    der Verarbeitung der 
+    personenbezogenen Daten.
+ 4 wenn die Verarbeitung aufgrund 
+    berechtigter Interessen des
+    Verantwortlichen oder eines Dritten 
+    erfolgt, sind die berechtigten Interessen 
+    aufzuzeigen.
+ 5 eventuell die Empfänger oder Kategorien
+    von Empfängern der personenbezogenen 
+    Daten.
+ 6 gegebenenfalls die Absicht des 
+    Verantwortlichen, die personenbezogenen 
+    Daten an ein Drittland oder eine 
+    internationale Organisation weiterzuleiten,
+    Info über das Vorhandensein oder Fehlen 
+    eines Angemessenheitsbeschlusses der 
+    Europäischen Kommission und Verweis auf 
+    angemessene und geeignete Garantien.
+ 7 Dauer und Kriterien für die Dauer der 
+    Datenspeicherung.
+ 8 Information über die Betroffenenrechte 
+    auf Auskunft, Berichtigung, Löschung, 
+    Einschränkung, Datenübertragbarkeit 
+    und Widerspruch.
+ 9 Information über die Möglichkeit des 
+    Widerrufs der Einwilligung.
+ 10 Information über das Bestehen eines 
+      Beschwerderechts bei der Aufsichtsbehörde
+ 11 Ob die Bereitstellung der personenbezogenen 
+      Daten gesetzlich oder vertraglich 
+      vorgeschrieben oder für einen 
+      Vertragsabschluss erforderlich ist, ob 
+      die betroffene Person zur 
+      Datenbereitstellung verpflichtet ist und 
+      welche etwaige Folgen eine 
+      Nichtbereitstellung hätte.
+12 Allenfalls über das Bestehen einer 
+     automatischen Entscheidungsfindung sowie
+     über deren Logik.
+
+
+
+      </field>
+   </record>
+
+  <record id="task_vierzehn" model="dsgvo.task">
+      <field name="name">2.9 Auftragsverarbeiter-Regelungen</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Der Auftragsverarbeiter ist jener Auftragnehmer, welcher im Auftrag des Verantwortlichen Dienstleistungen im Bereich Hosting, Software, Cloud-Software, Sofware-Consulting, Lohnverrechnung, Personalwesen etc. und der damit zusammenhängenden Verarbeitung von personenbezogenen Daten vornimmt.
+Für die Zusammenarbeit mit Auftragsverarbeitern sind klare DSGVO konforme Regelungen festzulegen.
+Die Verarbeitung von personenbezogenen 
+Daten durch einen Auftragsverarbeiter muss 
+per schriftlichen Vertrag erfolgen.
+      </field>
+      <field name="zielsetzung"> 1 Klare Regelungen für die Auswahl, 
+    Beauftragung und Auftragserfüllung sowie 
+    die Kommunikation und Zusammenarbeit 
+    mit Auftragsverarbeitern in Bezug auf 
+    die Pflichten im Rahmen der DSGVO.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-4-ds-gvo">4</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-28-ds-gvo">28</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-29-ds-gvo">29</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-080">80</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-081">81</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Pflichtenheft für die DSGVO konforme 
+    Anfrage und Beauftragung von 
+    Auftragsverarbeitern erarbeiten.
+ 2 Auswahl von, den Inhalten des Pflichtenhefts 
+    bzw. der DSGVO entsprechenden 
+    Auftragsverarbeitern welche die technischen 
+    und organisatorischen Maßnahmen erfüllen 
+    können.
+ 3 Anpassung von gegebenenfalls bereits 
+    bestehenden Vereinbarungen/Verträgen mit 
+    Auftragsverarbeitern im Sinne der DSGVO.
+ 4 Vertragliche Vereinbarung mit neuen 
+    Auftragsverarbeitern im Sinne der DSGVO. 
+ 5 Laufende Überprüfung der Einhaltung der 
+    Pflichten des Auftragsverarbeiters gemäß 
+    DSGVO.
+      </field>
+   </record>
+
+   <record id="task_fuenfzehn" model="dsgvo.task">
+      <field name="name">2.10 Datensicherheit durch „Privacy by Design“ und „Privacy by Default“ gewährleisten</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Um die Datensicherheit bei der Verarbeitung von personenbezogenen Daten effektiv gewährleisten
+zu können, werden Maßnahmen in Form von
+Datenschutz durch Technikgestaltung und 
+in Form von datenschutzfreundlicher 
+Voreinstellungen gefordert. 
+(PRIVACY BY DEFAULT and PRIVACY BY DESIGN).
+      </field>
+      <field name="zielsetzung">1 Die Einführung von geeigneten technischen 
+   und organisatorischen Maßnahmen zum Schutz 
+   von personenbezogenen Daten unter 
+   Berücksichtigung des Stands der Technik, 
+   der Implementierungskosten und der Art, 
+   des Umfangs, der Umstände und der Zwecke 
+   der Verarbeitung sowie der unterschiedlichen 
+   Eintrittswahrscheinlichkeit und Schwere der 
+   mit der Verarbeitung verbundenen Risiken für 
+   die Rechte und Freiheiten natürlicher Personen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-25-ds-gvo">25</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-078">78</a></p>
+      </field>
+      <field name="taetigkeiten">Um den Schutz der in Bezug auf die Verarbeitung 
+personenbezogener Daten anzuwendenden
+Rechte und Freiheiten natürlicher Personen 
+zu wahren sind folgende dem Risiko 
+entsprechende, anwendbare Maßnahmen 
+zu setzen:
+
+ 1 Evaluierung und Dokumentation der 
+    Risikoeinschätzung für betroffene Personen.
+ 2 geeignete technische und organisatorische 
+    Maßnahmen (TOM´s) anwenden welche 
+    sicherstellen, dass durch Voreinstellung 
+    möglichst nur personenbezogene Daten für 
+    den jeweils vorgesehenen Zweck verarbeitet 
+    werden können.
+ 3 Menge und Umfang der personenbezogenen 
+    Daten auf das Notwendige reduzieren 
+    (Minimierung).
+ 4 Die Speicherungsdauer und die Zugänglichkeit 
+    von personenbezogenen Daten auf das für 
+    den Zweck der Verarbeitung Notwendige 
+    minimieren (löschen verschlüsseln oder
+    /und pseudonymisieren). 
+ 5 Voreinstellung der 
+    Datenschutzgrundverordnung am besten 
+    entsprechenden, jeweiligen Konfiguration.
+ 6 Dokumentation der anwendbaren TOM´s 
+    / technischen und organisatorischen 
+    Maßnahmen.
+
+
+      </field>
+  </record>
+
+  <record id="task_sechzehn" model="dsgvo.task">
+      <field name="name">2.11 Vorgehen bei Datenschutzverletzungen / Data Breach</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Für den Fall einer Datenschutzverletzung / Data Breach (z.B. Zugriff eines Unbefugten auf Daten, Verlust eines Datenträgers, Hackerangriff etc.) sieht die DSGVO besondere Maßnahmen vor, 
+um etwaige Schäden zu minimieren oder auszuschließen.
+      </field>
+      <field name="zielsetzung">1 Das Vorliegen einer klaren Vorgehensweise 
+   und zuständige Verantwortlichkeiten für eine 
+   unverzügliche und vollständige Information/
+   Meldung an die Aufsichtsbehörde und 
+   gegebenenfalls an betroffene Personen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-28-ds-gvo">28</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-33-ds-gvo">33</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-34-ds-gvo">34</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-085">85</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-086">86</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-087">87</a></p>
+      </field>
+      <field name="taetigkeiten">Erstellen einer Roadmap für den Fall einer 
+Datenschutzverletzung welche die 
+Vorgehensweise, die zuständigen 
+Verantwortlichen und die 
+abzuwickelnden Tätigkeiten beinhaltet.
+Inhalt:
+
+ 1 Festlegen von möglichen 
+    Datenschutzverletzungsfällen.
+ 2 Rollen, Verantwortlichkeiten und 
+    Vorgehensweise definieren.
+ 3 Darstellung der Ersteinschätzung.
+ 4 Dem Vorfall entsprechende 
+    Sofortmaßnahmen definieren.
+ 5 Verpflichtung eines etwaigen 
+    Auftragsverarbeiters  zur unverzüglichen
+    Meldung eines Vorfalls an den 
+    Verantwortlichen.
+
+Art und Inhalt der Meldung an die zuständige 
+Aufsichtsbehörde, wenn die Verletzung des 
+Schutzes personenbezogener Daten 
+voraussichtlich zu einem Risiko für die Rechte
+und Freiheiten natürlicher Personen führt.
+(Die Meldung an die Aufsichtsbehörde muss 
+unverzüglich, möglichst innerhalb von 72 Stunden
+nach bekanntwerden des Vorfalles erfolgen).
+
+  6 Information und Dokumentation über die
+     Arten der Datenschutzverletzung.
+  7 Angaben zur Kategorie der betroffenen 
+     personenbezogenen Daten und Personen. 
+     (nach Möglichkeit)
+  8 Anzahl der betroffenen Personen. 
+     (nach Möglichkeit)
+  9 Name und Kontaktdaten eines etwaigen 
+     Datenschutzbeauftragten.
+  10 Information zu etwaigen Folgen der 
+       Datenschutzverletzung.
+  11 Information zu den etwaig ergriffenen
+       Gegenmaßnahmen.
+
+Benachrichtigung der betroffenen Person, wenn 
+die Verletzung des Schutzes personenbezogener
+Rechte und Freiheiten der natürlichen Person 
+gefährdet ist.
+
+  12 Formulierung der Information in klarer und 
+       verständlicher Sprache. 
+       (auf für Nichttechniker verständlich)
+  13 Information über die Art und den Umfang 
+       der Datenschutzverletzung betreffend der 
+       personenbezogenen Daten der Person.
+  14 Namen und Kontaktdaten eines etwaigen 
+       Datenschutzbeauftragten.
+  15 Information von etwaigen Folgen der 
+       Datenschutzverletzung.
+  16 Information zu den etwaig ergriffenen 
+       Gegenmaßnahmen.
+  17 Information zur weiteren Vorgehensweise.
+
+      </field>
+  </record>
+
+  <record id="task_siebzehn" model="dsgvo.task">
+      <field name="name">2.12 Bestellung eines Datenschutzbeauftragten und dessen Aufgaben</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Der Datenschutzbeauftragte hat die Aufgabe, die Einhaltung der Datenschutzgrundverordnung und anderer anwendbarer Vorschriften und die Strategien sowie die Umsetzung des Verantwortlichen oder des Auftragsverarbeiters 
+für den Schutz von personenbezogenen Daten 
+zu überprüfen. 
+Es kann ein Dienstnehmer oder ein externer Selbstständiger Datenschutzbeauftragter sein! 
+Er hat unmittelbar an die höchste Managementebene zu berichten und hat die erforderlichen Ressourcen und den Zugang
+zu den personenbezogenen Daten für die
+Erfüllung seiner Aufgaben zu erhalten. 
+Der Datenschutzbeauftragte darf keine Anweisungen bezüglich der Ausübung seiner Aufgaben erhalten (unabhängig) und in diesem Zusammenhang nicht abberufen oder 
+benachteiligt werden. 
+Der Datenschutzbeauftragter ist Anlaufstelle für die Behörden, erster Ansprechpartner im Bereich Datenschutz und Berater zu den Themen der Rechte und Pflichten nach der Verordnung, des Verfahrensverzeichnisses sowie der
+Datenschutz-Folgenabschätzung.
+      </field>
+      <field name="zielsetzung"> 1 Einsatz eines Datenschutzbeauftragten zur 
+    Überwachung der 
+    Datenschutzgrundverordnungs
+    -Konformität und zur Einhaltung des 
+    Datenschutzgesetzes und anderer 
+    Datenschutzvorschriften sowie zur 
+    diesbezüglichen internen Beratung 
+    und als Ansprechpartner für Behörden.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-39-ds-gvo">39</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-097">97</a></p>
+      </field>
+      <field name="ref" type="html">
+        <p><a href="http://ec.europa.eu/newsroom/document.cfm?doc_id=44100">Working Paper 243 rev.01 der Art. 29 Gruppe</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Prüfung, ob ein Datenschutzbeauftragter 
+    zu bestellen ist. 
+   (Eine freiwillige Bestellung ist jederzeit möglich)
+
+Eine Verpflichtung zur Bestellung eines Datenschutzbeauftragten ist für Unternehmen in folgenden Fällen vorgesehen:
+
+ 2 wenn die Kerntätigkeit in der Durchführung von 
+    Verarbeitungstätigkeit mit Notwendigkeit zur 
+    umfangreichen, regelmäßigen und 
+    systematischen Überwachung von 
+    betroffenen Personen besteht.
+ 3 wenn die Kerntätigkeit des Unternehmens in 
+    der umfangreichen Verarbeitung von sensiblen 
+    Daten oder über strafrechtliche Verurteilungen
+    oder Straftaten besteht.
+
+Schaffen der Voraussetzungen zur Einhaltung der 
+Aufgaben des Datenschutzbeauftragten welche 
+folgende sind:
+
+ 4 Die Unterrichtung und Beratung des 
+    Verantwortlichen oder des Auftragverarbeiters 
+    und der mit Datenverarbeitung betrauten 
+    Beschäftigten hinsichtlich ihrer Pflichten 
+    gemäß Datenschutzgrundverordnung und 
+    sonstiger Datenschutzvorschriften.
+ 5 Die Überwachung und Überprüfung der 
+    Einhaltung der Datenschutzvorschriften und 
+    Strategien zum Schutz personenbezogener 
+    Daten inklusive der Zuweisung von 
+    Zuständigkeiten, Sensibilisierung und 
+    Schulung der Mitarbeiter.
+ 6 Beratung zur Datenschutz-Folgenabschätzung 
+    und des Verfahrensverzeichnisses
+ 7 Berichts- und Informationsfluss zum obersten 
+    Management
+ 8 Zusammenarbeit und Kommunikation mit der 
+    Aufsichtsbehörde
+ 9 Änderungsmanagement in Bezug auf 
+    Neuerungen bzw. Updates bezüglich DSGVO 
+    Inhalte
+ 10 Durchführung von regelmäßigen, internen 
+      Datenschutz – Audits
+      </field>
+  </record>
+
+  <record id="task_achtzehn" model="dsgvo.task">
+      <field name="name">2.13 Datenschutz Regelwerk ausarbeiten</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Ausarbeitung und von der Unternehmensleitung Geltendmachung  interner, verbindlicher Datenschutzrichtlinien mit organisationsweiter Geltung.
+      </field>
+      <field name="zielsetzung"> 1 Gültige Dokumentation der im Unternehmen
+    etablierten Datenschutzverordnungs-Richtlinien
+    als interne Vorgabe und Nachweis der 
+    DSGVO-Konformität der Verarbeitung von 
+    personenbezogenen Daten.
+    Verschränkung der Dokumentationsinhalte 
+    mit dem Verfahrensverzeichnis und der  
+    Datenschutz-Folgenabschätzung.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-5-ds-gvo">5</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-24-ds-gvo">24</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-32-ds-gvo">32</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-40-ds-gvo">40</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-42-ds-gvo">42</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-47-ds-gvo">47</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https://www.datenschutz-grundverordnung.eu/erwagungsgrunde-der-eu-datenschutz-grundverordnung">39 74-77 83 98-100 110</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Evaluierung und Dokumentation der 
+    IST-Situation bezüglich Datenschutz-Vorgaben.
+ 2 Projektgruppe mit den erforderlichen 
+    verantwortlichen und wissenden Personen 
+    einberufen.   
+ 3 Erarbeitung und Verabschiedung der Form und 
+    Veröffentlichung sowie der Adressaten des 
+    Regelwerks.
+ 4 Harmonisierung der bereits vorhandenen 
+    Regeln, Dokumente und Vorschriften mit dem 
+    neuen, erarbeiteten Regelwerk.
+ 5 Erstellung und Freigabe des Regelwerks durch 
+    die Unternehmensleitung.
+ 6 Interne Veröffentlichung des Regelwerks.
+ 7 Laufende Überprüfung Aktualisierung des 
+    Regelwerks(bei Bedarf).
+      </field>
+  </record>
+
+  <record id="task_neunzehn" model="dsgvo.task">
+      <field name="name">2.14 Mitarbeiter schulen</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Um ein Verständnis für die Wertigkeit und Wichtigkeit von personenbezogenen Daten 
+und dem Umgang damit zu schaffen ist es empfehlenswert eine Mitarbeiter Grundschulung bzw. Informationsveranstaltung abzuhalten. 
+Den Mitarbeitern, welche im Rahmen ihrer Tätigkeiten mit personenbezogenen Daten zu tun haben ist eine Intensivschulung näherzubringen.
+      </field>
+      <field name="zielsetzung"> 1 Das Ziel ist eine Sensibilisierung und ein 
+    gemeinsames Verständnis zum Thema 
+    Datenschutz und den Inhalten der 
+    Datenschutzverordnung im Unternehmen 
+    zu etablieren. 
+    Diesbezüglich ist eine grundsätzliche und 
+    laufende Wissensvermittlung im Unternehmen 
+    und eine positive Grundhaltung unter dem
+    Aspekt „gemeinsame Aufgabe“ zu schaffen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-39-ds-gvo">39</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-47-ds-gvo">47</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-097">97</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-110">110</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Planung und Organisation einer 
+    Informationsveranstaltung für alle Mitarbeiter. 
+ 2 Planung und Organisation einer 
+    Grundschulung für interessierte Mitarbeiter.
+ 3 Planung und Organisation einer 
+    Intensivschulung für Mitarbeiter welche mit
+    personenbezogenen Daten zu tun haben. 
+ 4 Bei diesen Schulungen ist darauf zu achten,
+    dass neben der theoretischen 
+    Wissensvermittlung auch auf die betriebliche
+    Praxis eingegangen wird.
+ 5 Dokumentation der Schulungen, der 
+    Schulungsinhalte und der Schulungsteilnehmer.
+ 6 Nachschulungen bei Aktualisierungsbedarf.
+
+      </field>
+  </record>
+
+  <record id="task_zwanzig" model="dsgvo.task">
+      <field name="name">2.15 Internationale Datenverkehr (EU / international)</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Jedwede Übermittlung von personenbezogenen 
+Daten an ein Drittland ist nur dann zulässig,
+wenn der Verantwortliche und der 
+Auftragsverarbeiter die Richtlinien und
+Bedingungen der DSGVO einhalten. 
+Innerhalb der EU gelten für die 
+Datenübermittlung grundsätzlich 
+die Richtlinien der DSGVO.
+      </field>
+      <field name="zielsetzung"> 1 Implementierung einer Prüf- und 
+    Ablaufvorgehensweise für etwaige
+    Datenübermittlungen an Drittländer und
+    Sicherstellung der Einhaltung der DSGVO-
+    bei der Richtlinien und der Rechtmäßigkeit
+    Übermittlung von personenbezogenen Daten.
+     
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-44-ds-gvo">44</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-45-ds-gvo">45</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-46-ds-gvo">46</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-47-ds-gvo">47</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-48-ds-gvo">48</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-49-ds-gvo">49</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https://www.datenschutz-grundverordnung.eu/erwagungsgrunde-der-eu-datenschutz-grundverordnung">101-115</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Grundsätzliche Prüfung der Rechtmäßigkeit 
+    für die Übermittlung von personenbezogenen 
+    Daten.
+ 2 Evaluierung von etwaigen Datenflüssen in 
+    Drittstaaten.
+ 3 Prüfung von möglichen Grundlagen für eine 
+    zulässige Datenübermittlung an ein Drittland
+    aufgrund von:
+     ■ Datenübermittlung auf der Grundlage eines 
+        Angemessenheitsbeschlusses 
+        (Art. 45 DSGVO)
+     ■ Datenübermittlung vorbehaltlich geeigneter 
+        Garantien. (Art. 46 u. 47 DSGVO)
+     ■ Ausnahmen für bestimmte Fälle 
+        (Art. 49 DSGVO) 
+        (z.B. Einwilligung des Betroffenen, Interesse 
+        der betroffenen Person, wichtiges öffentliches 
+        Interesse, Rechtsansprüche, lebenswichtiges 
+        Interesse)
+ 4 Einführung einer Vorgehensweise welche 
+    sicherstellt, dass bei Verarbeitungstätigkeiten 
+    von personenbezogenen Daten die 
+    Übermittlung dieser Daten an Drittländer 
+    entsprechend der DSGVO geregelt ist.
+
+      </field>
+  </record>
+
+  <record id="task_einundzwanzig" model="dsgvo.task">
+      <field name="name">3.1 Laufende Aktualisierung des Verfahrensverzeichnisses</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Das erstellte Verfahrensverzeichnis dient als 
+Grundlage für eine laufende Überprüfung der 
+Aktualität anhand von umfassenden 
+Datenerhebungen und ist daraufhin 
+laufend zu aktualisieren.
+      </field>
+      <field name="zielsetzung">1 Sicherstellung der Aktualität des 
+    Verfahrensverzeichnisses und der 
+    Vollständigkeit aller aufgenommenen 
+    Verarbeitungstätigkeiten.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-30-ds-gvo">30</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-35-ds-gvo">35</a></p>
+      </field>
+      <field name="links" type="html">
+      <p><a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-082">82</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-084">84</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-085">85</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-086">86</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-087">87</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-088">88</a>, <a href="https:/www.datenschutz-grundverordnung.eu/grundverordnung/erwagungsgrund-089">89</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Erstellen eines „Verfahrensverzeichnis – 
+    Prüfplanes“ mit zeitlicher und inhaltliche 
+    Komponente. 
+ 2 Regelmäßige Überprüfung der Datenschutz-
+    Folgenabschätzung auf Aktualität und 
+    Aktualisierung bei Bedarf.
+ 3 Festlegen der Vorgehensweise bei 
+    Änderungen welche das
+    Verfahrensverzeichnis betreffen und
+    Sicherstellung, dass bei Änderungen
+    die für das Verfahrensverzeichnis
+    verantwortlichen Personen über
+    die Änderungen informiert werden.       
+    Änderungen sind:
+     ■ zusätzliche bzw. andere Datenarten
+     ■ zusätzliche bzw. andere betroffene Personen
+     ■ Erweiterungen bzw. Änderungen des Zwecks 
+        der Verarbeitung
+     ■ zusätzliche Empfänger von 
+        personenbezogenen Daten
+     ■ Änderungen der Speicher- bzw. Löschfristen
+     ■ Änderungen bzw. Anpassungen in der 
+        Dokumentation 
+        der TOM´s oder der geeigneten Garantien.
+     ■ Änderungen bzw. Anpassungen der 
+        zugrundeliegenden Dokumente wie z.B. 
+        Einwilligungserklärungen, Verträge,
+        Vereinbarungen etc..
+    4 Neue Verarbeitungstätigkeiten in das 
+       Verfahrensverzeichnis aufnehmen bzw.
+       nicht mehr relevante Verarbeitungstätigkeiten
+       aus dem Verfahrensverzeichnis löschen bzw.
+       inaktiv setzen.
+    5 Freigabe des aktualisierten 
+       Verfahrensverzeichnisses von der 
+       Unternehmensleitung. 
+
+      </field>
+  </record>
+
+  <record id="task_zweiundzwanzig" model="dsgvo.task">
+      <field name="name">3.2 Durchführung von regelmäßigen Audits</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Die Wirksamkeit und Effizienz und der 
+Praxiseinsatz eines Datenschutz-Management-
+Systems ist laufend zu überprüfen. 
+Dies ist am besten in Form von regelmäßigen
+internen bzw. externen Überwachungsaudits 
+zu gewährleisten.
+      </field>
+      <field name="zielsetzung"> 1 Laufende Überprüfung des Einsatzes, der 
+    Wirksamkeit und der Praxisorientierung des 
+    eingesetzten Datenschutz-Management-
+    Systems sowie eine kontinuierliche 
+    Verbesserung aufgrund der ermittelten
+    Erkenntnisse.
+      </field>
+      <field name="ref" type="html">
+        <p><a href="http://ec.europa.eu/newsroom/document.cfm?doc_id=44100">Working Paper 243 rev.01 der Art. 29 Gruppe</a></p>
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-24-ds-gvo">24</a></p>
+      </field>
+      <field name="ref" type="html">
+        <p><a href="https://www.iso.org/isoiec-27001-information-security.html">ISO/IEC 27001 Kapitel 9.2</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Inhaltliche und zeitliche Planung der Audits
+      ■ Definition des Audit-Rahmens
+      ■ Planung und Vereinbarung der Interviews
+         mit relevanten und verantwortlichen 
+         Mitarbeitern.
+      ■ Definition der zu prüfenden Dokumente
+ 2 Durchführung der Datenschutz-Audits 
+    (Beispielinhalte)
+      ■ Durchsicht und Review des 
+          Verfahrensverzeichnisses, der
+          Datenschutz-Folgenabschätzung, 
+          der Datenschutz-Regelungen und von 
+          relevanten Dokumenten.
+      ■ Durchführung der Interviews mit den 
+         relevanten und verantwortlichen 
+         Mitarbeitern.
+      ■ Allenfalls Durchführung von speziellen 
+         Prozess-, Datenfluss-, bzw. System-Audits.
+ 3 Erstellen des Audit-Berichts
+      ■ Beschreibung der ermittelten IST – Situation.
+      ■ Beschreibung von etwaigen Abweichungen 
+         im Datenschutz-Management-System.
+      ■ Erkenntnisse und Maßnahmen zu den 
+         eruierten Abweichungen.
+ 4 Übergabe des Berichtes an die 
+    Unternehmensleitung
+      ■ Inhalte sind IST Status, gegebenenfalls 
+         Abweichungen sowie 
+         Verbesserungsmaßnahmen.
+      ■  Herstellen eines gleichen Wissensstandes 
+          und neuerliches Stärken des Bewusstseins 
+          für die Inhalte der DSGVO im Unternehmen.
+
+      </field>
+  </record>
+
+  <record id="task_dreiundzwanzig" model="dsgvo.task">
+      <field name="name">3.3 Pflege der Kontakte mit betroffenen Personen und den Behörden</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Ein guter Kontakt und eine gute Kommunikation 
+mit betroffenen Personen und Behörden sollte laufend gepflegt werden um bei Bedarf bereits Kommunikationswege offen zu haben und um einen eingehenden und ausgehenden Informationsfluss zur Verfügung zu haben.
+      </field>
+      <field name="zielsetzung"> 1 Das Vorhandensein und die laufende Pflege 
+    von Kontakten mit Aufsichtsbehörden und 
+    betroffenen Personen sowie eine konstruktive 
+    Zusammenarbeit.
+ 2 Offener Umgang mit dem Thema Datenschutz 
+    und Präsentation des Unternehmens nach 
+    innen und außen als DSGVO-konformes 
+    Unternehmen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-31-ds-gvo">31</a>, <a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-57-ds-gvo">57</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Identifikation und Auflistung von interessierten 
+    Kommunikationspartnern zum Thema DSGVO
+      ■ Aufsichtsbehörde
+      ■ Betroffene Personen
+      ■ Medien
+      ■ Investoren, Banken etc.
+ 2 Kommunikationskonzept erstellen und 
+    umsetzen.
+
+      </field>
+  </record>
+
+  <record id="task_vierundzwanzig" model="dsgvo.task">
+      <field name="name">3.4 Sicherstellen des KVP (kontinuierlicher Verbesserungsprozess) zum DSMS (Datenschutz-Managementsystem)</field>
+      <field name="model">dsgvo.task</field>
+      <field name="beschreibung">Laufende Überprüfung und Verbesserung des Einsatzes, der Wirksamkeit und der Praxisorientierung des eingesetzten Datenschutz-Management-Systems unter Einbeziehung von etwaigen rechtlichen und/oder organisatorischen Änderungen.
+      </field>
+      <field name="zielsetzung"> 1 Sicherstellung der Einhaltung von Vorgaben 
+    sowie der jeweils aktuellen Rechtsvorschriften 
+    aufgrund von regelmäßigen Überprüfungen 
+    und Anpassungen.
+      </field>
+      <field name="links_art" type="html">
+        <p><a href="https://www.datenschutz-grundverordnung.eu/grundverordnung/art-24-ds-gvo">24</a></p>
+      </field>
+      <field name="ref" type="html">
+        <p><a href="https://www.iso.org/standard/54534.html">ISO/IEC 27001:2013 Kap.10</a></p>
+      </field>
+      <field name="taetigkeiten"> 1 Identifikation von etwaigen Konformitäts-
+    Abweichungen.
+ 2 Dokumentation von Konformitäts-
+    Abweichungen.
+ 3 Behebung von Konformitäts-
+    Abweichungen durch 
+    Korrekturmaßnahmen.
+ 4 Dokumentation der Korrekturmaßnahmen 
+     in Bezug zu den Konformitäts-
+     Abweichungen.
+ 5 Laufende Überprüfung, Evaluierung und 
+    Verbesserung der:
+     ■ Technischen und organisatorischen 
+        Maßnahmen (Stand der Technik, 
+        Bedrohungsrisiko)
+     ■ Situation zu Mitarbeiter-Bewusstsein und 
+        Wissensstand
+     ■ Datenschutz-Richtlinien
+     ■ Verträge (Auftragsverarbeiter-Verträge, 
+        Service Level Agreements, Mitarbeiter-
+        Verträge etc.)
+     ■ DSGVO relevanten Prozessabläufe
+     ■ internen und externen Datenschutz-Audits
+
+
+      </field>
+  </record>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </data>
+
+
+
+     
+</odoo>

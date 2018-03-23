@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <record id="ver_eins" model="dsgvo.verarbeitungstaetigkeiten">
+        <field name="name">Buchhaltung</field>
+    </record>
+    <record id="ver_zwei" model="dsgvo.verarbeitungstaetigkeiten">
+        <field name="name">Personalabrechnung</field>
+    </record>
+    <record id="ver_drei" model="dsgvo.verarbeitungstaetigkeiten">
+        <field name="name">Auftragserfassung</field>
+    </record>
+    <record id="ver_vier" model="dsgvo.verarbeitungstaetigkeiten">
+        <field name="name">Webshop</field>
+    </record>
+    <record id="ver_fuenf" model="dsgvo.verarbeitungstaetigkeiten">
+        <field name="name">Videoüberwachung</field>
+    </record>
+    <record id="ver_sechs" model="dsgvo.verarbeitungstaetigkeiten">
+        <field name="name">Gesundheitsbehörde</field>
+    </record>
+  </data>
+</odoo>

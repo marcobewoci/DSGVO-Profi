@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <record id="default_eins" model="dsgvo.datenarten">
+        <field name="name">Ordnungsnummer</field>
+    </record>
+    <record id="default_zwei" model="dsgvo.datenarten">
+        <field name="name">Anschrift</field>
+    </record>
+    <record id="default_drei" model="dsgvo.datenarten">
+        <field name="name">Geschlecht</field>
+    </record>
+    <record id="default_vier" model="dsgvo.datenarten">
+        <field name="name">SVNR</field>
+    </record>
+    <record id="default_fuenf" model="dsgvo.datenarten">
+        <field name="name">Geburtsdatum</field>
+    </record>
+  </data>
+</odoo>
