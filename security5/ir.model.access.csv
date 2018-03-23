@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_dsgvo_datenarten_group_user,dsgvo.datenarten.user,model_dsgvo_datenarten,base.group_user,1,1,1,1
