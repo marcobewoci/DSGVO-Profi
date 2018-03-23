@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <record id="haftungsausschluss_view" model="ir.ui.view">
+      <field name="name">Haftungsausschluss Form</field>
+      <field name="model">dsgvo.haftungsausschluss</field>
+      <field name="arch" type="xml">
+      <form>
+            <sheet>
+              <group name="group_top">
+                <group name="group_left" string="bewoci-Haftungsausschluss">
+               
+                  <textarea> Name und Kontaktdaten natürliche Personen/juristische Person/Behörde/Einrichtung etc.</textarea>
+                </group>
+              </group>
+            </sheet>
+      </form>
+      </field>
+    </record>
+
+ 
+     <!-- Action to open Verarbeitungsverzeichnis view -->
+    <act_window id="action_haftungsausschluss"
+      name="Haftungsausschluss"
+      res_model="dsgvo.haftungsausschluss"
+      view_mode="tree,form"/> 
+
+  
+
+    <!-- Menu item to open Verarbeitungsverzeichni --> 
+    <menuitem id="menu_haftungsausschluss"
+      name="HAFTUNGSAUSSCHLUSS"
+      parent="dsgvo_menu"
+      sequence="20"
+      action="action_haftungsausschluss"/> 
+
+  </data>
+</odoo>
+
+
+
+
+

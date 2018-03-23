@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_form_ver_verzeichnis_inherit" model="ir.ui.view">
+        <field name="name">Verarbeitungsverzeichnis Form2</field>
+        <field name="model">dsgvo.datenarten</field>
+        <field name="inherit_id" ref="view_form_ver_verzeichnis"/>
+        <field name="arch" type="xml">
+            <field name="daten_arten"/>
+        </field>
+    </record>
+  </data>
+</odoo>
+
+
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <record id="verzw_eins" model="dsgvo.verarbeitungszwecke">
+        <field name="name">Gehaltsüberweisung</field>
+    </record>
+    <record id="verzw_zwei" model="dsgvo.verarbeitungszwecke">
+        <field name="name">Mahnwesen</field>
+    </record>
+    <record id="verzw_drei" model="dsgvo.verarbeitungszwecke">
+        <field name="name">Sicherheit</field>
+    </record>
+    <record id="verzw_vier" model="dsgvo.verarbeitungszwecke">
+        <field name="name">Geschäftspartnerdatenbank</field>
+    </record>
+    <record id="verzw_fuenf" model="dsgvo.verarbeitungszwecke">
+        <field name="name">Marketing</field>
+    </record>
+  </data>
+</odoo>
