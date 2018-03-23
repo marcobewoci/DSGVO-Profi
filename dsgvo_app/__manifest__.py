@@ -7,7 +7,7 @@
     'author': 'bewoci GmbH',
     'version': '1.0',
     'category':'Project',
-    'license': 'AGPL-3',
+    'license': 'LGPL-3',
     'price': 249.00,
     'currency':'EUR',
     'depends': ['mail'],
