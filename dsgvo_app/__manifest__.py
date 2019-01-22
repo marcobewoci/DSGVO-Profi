@@ -8,6 +8,7 @@
     'version': '1.0',
     'category':'Project',
     'license': 'AGPL-3',
+    'price': 'FREE',
     'currency':'EUR',
     'depends': ['mail'],
     'installable': True, 
